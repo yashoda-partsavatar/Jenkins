@@ -9,9 +9,15 @@ pipeline {
                 bat 'mvn clean compile'
             }
         }
+        stage('build && SonarQube analysis') {
+                    steps {
+                            // Optionally use a Maven environment you've configured already
+                                bat 'mvn clean package sonar:sonar'
+                    }
+                }
     }
 
-    post {
+    /*post {
             always {
                 echo 'I will always say Hello again!'
 
@@ -21,5 +27,5 @@ pipeline {
                 echo body
                 echo recipientProviders
             }
-        }
+        }*/
 }
