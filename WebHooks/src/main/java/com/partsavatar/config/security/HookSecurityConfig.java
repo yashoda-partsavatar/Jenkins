@@ -13,7 +13,7 @@ public class HookSecurityConfig extends WebSecurityConfigurerAdapter {
     private String username = "username";
 
     private String password = "password";
-
+test
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser(username).password(password).authorities("ROLE_AUTHORIZED");
