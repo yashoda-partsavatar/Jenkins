@@ -41,21 +41,17 @@ pipeline {
         stage('Manually push build to production') {
             steps {
                 script {
-                    //def proceed = true
+                    def proceed = true
                     try {
-                        timeout(time: 15, unit: 'SECONDS') {
+                        timeout(time: 60, unit: 'SECONDS') {
                             input(message: 'Deploy this build to Production?')
                         }
                     } catch (err) {
-                    def user = err.getCauses()[0].getUser()
-                                    if('SYSTEM' == user.toString()) { //timeout
-                                        currentBuild.result = "SUCCESS"
-                                    }
-                        //proceed = false
+                        proceed = false
                     }
-                    /*if (proceed) {
+                    if (proceed) {
                         echo "deployed to production"
-                    }*/
+                    }
                 }
             }
         }
