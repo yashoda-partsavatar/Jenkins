@@ -43,7 +43,7 @@ pipeline {
     post {
         always {
             echo "I AM ALWAYS first"
-            notifyBuild("${currentBuild.currentResult}")
+            //notifyBuild("${currentBuild.currentResult}")
         }
         success {
             echo "BUILD SUCCESS"
