@@ -85,7 +85,7 @@ def notifyFailed() {
 
             to: 'yashoda.agrawal@partsavatar.ca',
 
-            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'" + branchName + ", " + shortCommitHash,
+            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'" + ", " + shortCommitHash,
 
             body: """    Hi Team
 
