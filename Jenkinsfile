@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -53,7 +52,6 @@ pipeline {
                 echo recipientProviders*/
 
                 def mailRecipients =
-                    def jobName = currentBuild.fullDisplayName
 
                     emailext body: '''${SCRIPT, template="groovy-html.template"}''',
                         mimeType: 'text/html',
@@ -62,7 +60,7 @@ pipeline {
                         replyTo: "${getEmail()}",
                         recipientProviders: [[$class: 'CulpritsRecipientProvider']]
             }
-        }
+     }
     def getEmail(){
         return "yashoda.agrawal@partsavatar.ca";
     }
