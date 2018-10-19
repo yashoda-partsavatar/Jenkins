@@ -38,7 +38,23 @@ pipeline {
                 }
             }
         }
-
+        stage('Manually push build to production') {
+            steps {
+                script {
+                    def proceed = true
+                    try {
+                        timeout(time: 15, unit: 'SECONDS') {
+                            input(message: 'Deploy this build to Production?')
+                        }
+                    } catch (err) {
+                        proceed = false
+                    }
+                    if (proceed) {
+                        echo "deployed to production"
+                    }
+                }
+            }
+        }
     }
 
     post {
