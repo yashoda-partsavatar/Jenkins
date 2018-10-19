@@ -25,19 +25,20 @@ pipeline {
         stage('Deployment stage') {
             parallel {
                 stage('Deploy WebHooks App') {
-                    steps {
-                        echo "Deploying to CI Environment."
-                        bat 'cd WebHooks'
-                        bat 'mvn spring-boot:run'
+                    dir('WebHooks'){
+                        steps {
+                            echo "Deploying to CI Environment."
+                            bat 'mvn spring-boot:run'
+                        }
                     }
                 }
-                stage('Deploy another App') {
+                /*stage('Deploy another App') {
                     steps {
                         echo "Deploying to CI Environment."
                         bat 'cd PartsServer'
                         bat 'mvn spring-boot:run'
                     }
-                }
+                }*/
             }
         }
 
