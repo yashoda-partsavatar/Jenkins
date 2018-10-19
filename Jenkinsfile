@@ -29,7 +29,6 @@ pipeline {
                         dir('WebHooks'){
                             echo "Deploying to CI Environment."
                             bat 'mvn spring-boot:run'
-                            if()
                         }
                     }
                 }
