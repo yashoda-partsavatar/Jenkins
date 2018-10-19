@@ -40,31 +40,4 @@ pipeline {
          }
 
     }
-
-    /*post {
-            always {
-                /*echo 'I will always say Hello again!'
-
-                emailext body: 'body',
-                    recipientProviders: [developers(), upstreamDevelopers()],
-                    subject: 'build status'
-                echo body
-                echo recipientProviders*/
-
-                def mailRecipients =
-
-                    emailext body: '''${SCRIPT, template="groovy-html.template"}''',
-                        mimeType: 'text/html',
-                        subject: "[Jenkins] ${jobName}",
-                        to: "${getEmail()}",
-                        replyTo: "${getEmail()}",
-                        recipientProviders: [[$class: 'CulpritsRecipientProvider']]
-            }
-     }
-    def getEmail(){
-        return "yashoda.agrawal@partsavatar.ca";
-    }
-    def getJobName(){
-         return currentBuild.fullDisplayName;
-    }*/
 }
