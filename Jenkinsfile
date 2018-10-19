@@ -80,13 +80,12 @@ def notifySuccessful() {
 
 
 def notifyFailed() {
-    def shortCommitHash = getShortCommitHash()
 
     emailext (
 
             to: 'yashoda.agrawal@partsavatar.ca',
 
-            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'" + ", " + shortCommitHash,
+            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 
             body: """    Hi Team
 
@@ -102,8 +101,4 @@ def notifyFailed() {
 
     )
 
-}
-
-def getShortCommitHash() {
-    return bat(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 }
