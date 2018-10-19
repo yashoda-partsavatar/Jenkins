@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage('Manually push build to production') {
+        /*stage('Manually push build to production') {
             steps {
                 script {
                     def proceed = true
@@ -52,6 +52,20 @@ pipeline {
                     if (proceed) {
                         echo "deployed to production"
                     }
+                }
+            }
+        }*/
+        stage('Manually push build to production'){
+            try {
+                stage ('wait') {
+                    timeout(time: 15, unit: 'SECONDS') {
+                        input(message: 'Deploy this build to production?')
+                    }
+                }
+            } catch (err) {
+                def user = err.getCauses()[0].getUser()
+                if('SYSTEM' == user.toString()) { //timeout
+                    currentBuild.result = "SUCCESS"
                 }
             }
         }
