@@ -81,7 +81,6 @@ def notifySuccessful() {
 
 def notifyFailed() {
     def shortCommitHash = getShortCommitHash()
-    def changeLog = getChangeLog()
 
     emailext (
 
@@ -93,7 +92,7 @@ def notifyFailed() {
 
     The Build with Job Name :${env.JOB_NAME} and Build Number: [${env.BUILD_NUMBER}] has FAILED.
 
-    For more details please check console output at "${env.BUILD_URL}" + "Change Log: " + changeLog
+    For more details please check console output at "${env.BUILD_URL}"
 
     Thanks & Regards
 
@@ -107,8 +106,4 @@ def notifyFailed() {
 
 def getShortCommitHash() {
     return bat(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-}
-
-def getChangeLog() {
-    return bat(returnStdout: true, script: "git log --date=short --pretty=format:'%ad %aN <%ae> %n%n%x09* %s%d%n%b'").trim()
 }
