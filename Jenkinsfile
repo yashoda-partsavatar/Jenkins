@@ -1,34 +1,28 @@
 pipeline {
     agent any
-    def stageStatus
     stages {
 
         stage ('Compile Stage') {
-            stageStatus = 'Compile Stage'
             steps {
                 bat 'mvn clean compile'
             }
         }
         stage('build && SonarQube analysis') {
-            stageStatus = 'SonarQube analysis'
             steps {
                 bat 'mvn clean package sonar:sonar'
             }
         }
         stage ('build Stage') {
-            stageStatus = 'build Stage'
             steps {
-                bat 'mvn clean install -Dmaven.test.skip=true'
+                bat 'mvn clean build -Dmaven.test.skip=true'
             }
         }
         stage ('test Stage') {
-            stageStatus = 'test Stage'
             steps {
                 bat 'mvn test'
             }
         }
         stage('Deployment stage') {
-            stageStatus = 'Deployment stage'
             parallel {
                 stage('Deploy WebHooks App') {
                     steps {
@@ -46,10 +40,6 @@ pipeline {
     }
 
     post {
-        always {
-            echo "I AM ALWAYS first"
-            //notifyBuild("${currentBuild.currentResult}")
-        }
         success {
             echo "BUILD SUCCESS"
             echo "Keep Current Build If branch is master"
@@ -90,12 +80,12 @@ def notifySuccessful() {
 
 
 def notifyFailed() {
-
+    shortCommitHash = getShortCommitHash()
     emailext (
 
             to: 'yashoda.agrawal@partsavatar.ca',
 
-            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'" + branchName + ", " + shortCommitHash,
 
             body: """    Hi Team
 
@@ -111,4 +101,8 @@ def notifyFailed() {
 
     )
 
+}
+
+def getShortCommitHash() {
+    return bat(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 }
