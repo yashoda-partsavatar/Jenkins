@@ -55,7 +55,6 @@ pipeline {
                 }
             }
         }*/
-        stage('Manually push build to production'){
             try {
                 stage ('wait') {
                     timeout(time: 15, unit: 'SECONDS') {
@@ -68,7 +67,6 @@ pipeline {
                     currentBuild.result = "SUCCESS"
                 }
             }
-        }
     }
 
     post {
