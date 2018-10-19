@@ -27,11 +27,15 @@ pipeline {
                 stage('Deploy WebHooks App') {
                     steps {
                         echo "Deploying to CI Environment."
+                        bat 'cd WebHooks'
+                        bat 'mvn spring-boot:run'
                     }
                 }
                 stage('Deploy another App') {
                     steps {
                         echo "Deploying to CI Environment."
+                        bat 'cd PartsServer'
+                        bat 'mvn spring-boot:run'
                     }
                 }
             }
@@ -44,9 +48,6 @@ pipeline {
             echo "BUILD SUCCESS"
             echo "Keep Current Build If branch is master"
             notifySuccessful()
-        }
-        unstable {
-            echo "BUILD UNSTABLE"
         }
         failure {
             echo "BUILD FAILURE"
