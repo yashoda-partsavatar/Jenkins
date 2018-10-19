@@ -9,12 +9,12 @@ pipeline {
                 bat 'mvn clean compile'
             }
         }
-        /*stage('build && SonarQube analysis') {
+        stage('build && SonarQube analysis') {
                     steps {
                             // Optionally use a Maven environment you've configured already
                                 bat 'mvn clean package sonar:sonar'
                     }
-                }*/
+        }
          stage ('build Stage') {
               steps {
                       bat 'mvn clean build -Dmaven.test.skip=true'
@@ -42,7 +42,7 @@ pipeline {
 
     }
 
-    post {
+    /*post {
             always {
                 /*echo 'I will always say Hello again!'
 
@@ -52,15 +52,21 @@ pipeline {
                 echo body
                 echo recipientProviders*/
 
-                def mailRecipients = "your_recipients@company.com"
+                def mailRecipients =
                     def jobName = currentBuild.fullDisplayName
 
                     emailext body: '''${SCRIPT, template="groovy-html.template"}''',
                         mimeType: 'text/html',
                         subject: "[Jenkins] ${jobName}",
-                        to: "${mailRecipients}",
-                        replyTo: "${mailRecipients}",
+                        to: "${getEmail()}",
+                        replyTo: "${getEmail()}",
                         recipientProviders: [[$class: 'CulpritsRecipientProvider']]
             }
         }
+    def getEmail(){
+        return "yashoda.agrawal@partsavatar.ca";
+    }
+    def getJobName(){
+         return currentBuild.fullDisplayName;
+    }*/
 }
