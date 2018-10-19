@@ -39,4 +39,77 @@ pipeline {
         }
 
     }
+
+    post {
+        always {
+            echo "I AM ALWAYS first"
+            notifyBuild("${currentBuild.currentResult}")
+        }
+        success {
+            echo "BUILD SUCCESS"
+            echo "Keep Current Build If branch is master"
+            notifySuccessful()
+        }
+        unstable {
+            echo "BUILD UNSTABLE"
+        }
+        failure {
+            echo "BUILD FAILURE"
+            notifyFailed()
+        }
+    }
+}
+
+def notifySuccessful() {
+
+    emailext (
+
+            to: 'yashoda.agrawal@partsavatar.ca',
+
+            subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+
+            body: """    Hi Team
+
+    The Build with Job Name :${env.JOB_NAME} and Build Number: [${env.BUILD_NUMBER}] is SUCCESSFUL.
+
+
+    For more details please check console output at "${env.BUILD_URL}"
+
+    Thanks & Regards
+
+    Yashoda """,
+
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+
+    )
+}
+
+
+def notifyFailed() {
+
+
+
+    emailext (
+
+            to: 'yashoda.agrawal@partsavatar.ca',
+
+            subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+
+            body: """    Hi Team
+
+    The Build with Job Name :${env.JOB_NAME} and Build Number: [${env.BUILD_NUMBER}] has FAILED.
+    
+
+    For more details please check console output at "${env.BUILD_URL}"
+            
+
+    Thanks & Regards
+
+    Yashoda """,
+
+
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+
+    )
+
 }
