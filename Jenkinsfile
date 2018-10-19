@@ -36,7 +36,6 @@ pipeline {
                     steps {
                         dir('PartsServer'){
                             echo "Deploying to CI Environment."
-                            bat 'cd PartsServer'
                             bat 'mvn spring-boot:run'
                         }
                     }
