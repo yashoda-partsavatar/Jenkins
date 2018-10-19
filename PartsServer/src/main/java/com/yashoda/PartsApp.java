@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
-public class HooksApp extends SpringBootServletInitializer {
+public class PartsApp extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(HooksApp.class);
+        return application.sources(PartsApp.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(HooksApp.class, args);
+        SpringApplication.run(PartsApp.class, args);
     }
 
     @Configuration

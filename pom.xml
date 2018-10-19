@@ -11,6 +11,7 @@
 
     <modules>
         <module>WebHooks</module>
+        <module>PartsServer</module>
     </modules>
 
     <properties>

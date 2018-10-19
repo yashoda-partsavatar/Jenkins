@@ -1,5 +1,5 @@
 /*
-package com.partsavatar.controller.ajax;
+package com.yashoda.controller.ajax;
 
 import com.jcabi.aspects.Loggable;
 import lombok.AllArgsConstructor;

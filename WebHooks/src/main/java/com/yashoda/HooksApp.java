@@ -1,4 +1,4 @@
-package com.partsavatar;
+package com.yashoda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,13 +22,13 @@ public class HooksApp extends SpringBootServletInitializer {
 
     @Configuration
     @Profile("local")
-    @ComponentScan(basePackages = "com.partsavatar", lazyInit = true)
+    @ComponentScan(basePackages = "com.yashoda", lazyInit = true)
     static class LocalConfig {
     }
 
     @Configuration
     @Profile("default")
-    @ComponentScan(basePackages = "com.partsavatar")
+    @ComponentScan(basePackages = "com.yashoda")
     static class DefaultConfig {
     }
 
